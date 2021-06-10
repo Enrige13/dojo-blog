@@ -1,5 +1,4 @@
 // root component - child components nested here
-import './App.css';
 // import React from 'react' - in older versions 16-
 import Navbar from './Navbar'
 import Home from './Home'
