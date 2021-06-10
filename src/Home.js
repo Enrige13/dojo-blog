@@ -28,20 +28,26 @@ const Home = () => {
         { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'mario', id: 3 }
     ])
 
+    const [name, setName] = useState('mario')
+
     const handleDelete = (id) => {
         const newBlogs = blogs.filter(blog => blog.id !== id);
         setBlogs(newBlogs);
     }
 
-    useEffect(() => { // side effects of react, runs for every render
+    useEffect(() => { // runs for every render
         console.log('use effect ran')
-        console.log(blogs)
-    })
+        console.log(name)
+        // console.log(blogs)
+    }, [name]) // empty array, function only runs on the first initial render (once)
 
     return ( 
         <div className="home"> 
             <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete}/>
-
+            
+            <button onClick={() => setName('luigi')}>change name</button>
+            <p>{ name }</p>
+            
             {/* <BlogList blogs={blogs.filter((blog) => blog.author === 'mario')} title="Mario's blogs" handleDelete={handleDelete}/> */}
 
             {/* <p>{ name } is { age} years old</p>
