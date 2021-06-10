@@ -6,7 +6,7 @@
 
   # npx create-react-app dojo-blog
   # npm run start
-
+  # npx json-server --watch data/db.json --port 8000
 
   Tutorial 2: https://www.youtube.com/watch?v=4UZrsTqkcW4&list=WL&index=64
   Github 1: https://github.com/john-smilga/react-basics-2020
