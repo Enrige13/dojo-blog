@@ -23,8 +23,9 @@ const Home = () => {
 
     // props - const from parent useable in child
     const [blogs, setBlogs] = useState(null)
+    const [isPending, setIsPending] = useState(true) // loading the Data
 
-    const [name, setName] = useState('mario')
+    // const [name, setName] = useState('mario')
 
     // const handleDelete = (id) => {
     //     const newBlogs = blogs.filter(blog => blog.id !== id);
@@ -33,22 +34,26 @@ const Home = () => {
 
     useEffect(() => { // runs for every render
         console.log('use effect ran')
-        fetch('http://localhost:8000/blogs')
+        // setTimeout(() => { // Loading method to test
+            fetch('http://localhost:8000/blogs')
             .then(res => {
                 return res.json()
             })
             .then(data => {
                 // console.log(data)
                 setBlogs(data)
+                setIsPending(false)
             })
+        // }, 1000)
     }, []) // empty array, function only runs on the first initial render (once)
 
     return ( 
         <div className="home"> 
-                {/* handleDelete={handleDelete} */}
+            { isPending && <div>Loading...</div>}
+                    {/* handleDelete={handleDelete} */}
             {blogs && <BlogList blogs={blogs} title="All Blogs!" /> }
             {/* konditional templating in react (blogs &&) */}
-            
+
             {/* <button onClick={() => setName('luigi')}>change name</button>
             <p>{ name }</p> */}
             
