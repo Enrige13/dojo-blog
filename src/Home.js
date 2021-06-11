@@ -24,6 +24,7 @@ const Home = () => {
     // props - const from parent useable in child
     const [blogs, setBlogs] = useState(null)
     const [isPending, setIsPending] = useState(true) // loading the Data
+    const [error, setError] = useState(null)
 
     // const [name, setName] = useState('mario')
 
@@ -37,18 +38,27 @@ const Home = () => {
         // setTimeout(() => { // Loading method to test
             fetch('http://localhost:8000/blogs')
             .then(res => {
+                if(!res.ok) {
+                    throw Error('could not fetch the data for that ressource')
+                }
                 return res.json()
             })
             .then(data => {
                 // console.log(data)
                 setBlogs(data)
                 setIsPending(false)
+                setError(null)
+            })
+            .catch(err => { // catch network error
+                setIsPending(false)
+                setError(err.message)
             })
         // }, 1000)
     }, []) // empty array, function only runs on the first initial render (once)
 
     return ( 
         <div className="home"> 
+            { error && <div>{ error }</div>}
             { isPending && <div>Loading...</div>}
                     {/* handleDelete={handleDelete} */}
             {blogs && <BlogList blogs={blogs} title="All Blogs!" /> }
