@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Navbar from './Navbar'
 import Home from './Home'
 import Create from './Create'
-import BlogDetails from './BlogDetails';
+import BlogDetails from './BlogDetails'
+import NotFound from './NotFound'
 
 function App() { // jsx - html style templates (bubble rendert html)
   // const title = 'Welcome to the new blog'
@@ -28,6 +29,9 @@ function App() { // jsx - html style templates (bubble rendert html)
             </Route>
             <Route path="/blogs/:id"> 
               <BlogDetails />
+            </Route>
+            <Route path="*">
+              <NotFound />
             </Route>
           </Switch>
           {/* <Home /> */}
