@@ -6,9 +6,11 @@ const useFetch = (url) => {
     const [error, setError] = useState(null)
 
     useEffect(() => { // runs for every render
+        const abortCont = new AbortController() // cleanup/stop the fetch
+
         console.log('use effect ran')
         setTimeout(() => { // Loading method to test
-            fetch(url)
+            fetch(url, { signal: abortCont.signal })
             .then(res => {
                 if(!res.ok) {
                     throw Error('could not fetch the data for that ressource')
@@ -22,10 +24,16 @@ const useFetch = (url) => {
                 setError(null)
             })
             .catch(err => { // catch network error
-                setIsPending(false)
-                setError(err.message)
+                if (err.name === 'AbortError') {
+                    console.log('fetch aborted')
+                } else {
+                    setIsPending(false)
+                    setError(err.message)
+                }
             })
         }, 1000)
+
+        return () => abortCont.abort()
     }, [url]) // empty array, function only runs on the first initial render (once)
 
     return { data, isPending, error }
