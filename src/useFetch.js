@@ -8,7 +8,7 @@ const useFetch = (url) => {
     useEffect(() => { // runs for every render
         const abortCont = new AbortController() // cleanup/stop the fetch
 
-        console.log('use effect ran')
+        // console.log('use effect ran')
         setTimeout(() => { // Loading method to test
             fetch(url, { signal: abortCont.signal })
             .then(res => {
